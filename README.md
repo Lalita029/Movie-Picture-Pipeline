@@ -21,10 +21,12 @@ Complete these two values from the deployed Kubernetes services before submittin
 
 | Application | Live URL |
 | --- | --- |
-| Frontend | `REPLACE_WITH_FRONTEND_LOAD_BALANCER_URL` |
-| Backend | `REPLACE_WITH_BACKEND_LOAD_BALANCER_URL/movies` |
+| Frontend | [acd81e4db1a6d44bf9f7e91fa6236ea8-1160940709.us-east-1.elb.amazonaws.com](http://acd81e4db1a6d44bf9f7e91fa6236ea8-1160940709.us-east-1.elb.amazonaws.com) |
+| Backend | [a4541144bba5d44bb8861c8c2164bd68-1038229919.us-east-1.elb.amazonaws.com/movies](http://a4541144bba5d44bb8861c8c2164bd68-1038229919.us-east-1.elb.amazonaws.com/movies) |
 
-The backend URL must return the movie JSON response, and the frontend URL must load the movie list in a browser. Do not submit with the replacement values still present.
+These endpoints are transcribed from the existing frontend and backend verification screenshots. Recheck both with `kubectl get svc frontend backend` immediately before submission because AWS LoadBalancer hostnames are deployment-specific and may change after infrastructure is recreated. The backend URL must return the movie JSON response, and the frontend URL must load the movie list in a browser.
+
+The documented hostnames were not DNS-resolvable from the current environment on 2026-09-08, so treat them as captured evidence until a fresh AWS verification confirms the current service endpoints.
 
 ### Ownership evidence
 
