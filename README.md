@@ -9,6 +9,73 @@ The team's project is comprised of 2 applications.
 
 You'll find 2 folders, one named `frontend` and one named `backend`, where each application's source code is maintained. Your job is to use the team's [existing documentation](#frontend-development-notes) and create CI/CD pipelines to meet the teams' needs.
 
+## Submission Verification
+
+### Repository access
+
+The source repository is publicly accessible at [github.com/neravatisaidinesh/movie-picture-pipeline](https://github.com/neravatisaidinesh/movie-picture-pipeline).
+
+### Live verification
+
+Complete these two values from the deployed Kubernetes services before submitting. Both services are configured as AWS `LoadBalancer` services, so use the `EXTERNAL-IP` or hostname returned by `kubectl get svc`.
+
+| Application | Live URL |
+| --- | --- |
+| Frontend | `REPLACE_WITH_FRONTEND_LOAD_BALANCER_URL` |
+| Backend | `REPLACE_WITH_BACKEND_LOAD_BALANCER_URL/movies` |
+
+The backend URL must return the movie JSON response, and the frontend URL must load the movie list in a browser. Do not submit with the replacement values still present.
+
+### Ownership evidence
+
+Screenshots must be sequential, unedited captures from the same verification run. Every capture must show a unique identifier such as the UTC timestamp, AWS account ID, EKS cluster ARN, ECR image digest, Git commit SHA, or resource ARN. Do not crop, annotate, or combine screenshots after capture.
+
+Existing pipeline captures are available here:
+
+1. [Frontend CI](Screenshorts/FRONTEND%20CI.png)
+2. [Frontend CD](Screenshorts/FRONTEND%20CD.png)
+3. [Backend CI](Screenshorts/BACKEND%20CI.png)
+4. [Backend CD](Screenshorts/BACKEND%20CD.png)
+5. [Frontend application](Screenshorts/FRONTEND.png)
+6. [Backend application](Screenshorts/backend.png)
+
+The following evidence must also be captured and added to `Screenshorts/` before review:
+
+1. GitHub repository URL, commit SHA, and the Frontend CI, Frontend CD, Backend CI, and Backend CD run pages.
+2. AWS account identity, EKS cluster identity, ECR repository ARNs, and the deployed workload image references.
+3. Frontend and backend `kubectl get svc` output showing their external endpoints.
+4. ECR image details for both the frontend and backend images, including the SHA-tagged image tag and digest.
+5. A browser/API check of both live URLs.
+
+The current Terraform state records this infrastructure baseline. Confirm it against the live AWS account during evidence capture because Terraform state can become stale:
+
+| Resource | Recorded value |
+| --- | --- |
+| AWS account | `413127593923` |
+| AWS region | `us-east-1` |
+| EKS cluster | `cluster` |
+| Frontend ECR | `413127593923.dkr.ecr.us-east-1.amazonaws.com/frontend` |
+| Backend ECR | `413127593923.dkr.ecr.us-east-1.amazonaws.com/backend` |
+
+Capture the following commands in order. Run them before tearing down infrastructure if the cluster will not remain available for review:
+
+For a repeatable text record of the same checks, run `bash setup/collect-evidence.sh`. The script writes a timestamped record under `Screenshorts/`; capture the terminal output separately because the review requirement is for sequential, unedited screenshots.
+
+```bash
+date -u
+aws sts get-caller-identity
+aws eks describe-cluster --name "$EKS_CLUSTER_NAME" --query 'cluster.{name:name,arn:arn,status:status,endpoint:endpoint}' --output table
+aws ecr describe-repositories --repository-names frontend backend --query 'repositories[].{name:repositoryName,arn:repositoryArn,uri:repositoryUri}' --output table
+kubectl get svc,pods,deploy,nodes -o wide
+kubectl describe deploy
+kubectl describe svc
+aws ecr describe-images --repository-name frontend --query 'imageDetails[].{tag:imageTags,digest:imageDigest,pushed:imagePushedAt}' --output table
+aws ecr describe-images --repository-name backend --query 'imageDetails[].{tag:imageTags,digest:imageDigest,pushed:imagePushedAt}' --output table
+curl -i "$BACKEND_URL/movies"
+```
+
+The teardown evidence must include the complete output for `kubectl get svc,pods,deploy,nodes -o wide`, `kubectl describe deploy`, `kubectl describe svc`, and the image details for both ECR repositories. Preserve the original capture order and include the timestamp or another unique identifier in every screenshot.
+
 ## Deliverables
 
 ### Frontend
