@@ -21,27 +21,16 @@ Complete these two values from the deployed Kubernetes services before submittin
 
 | Application | Live URL |
 | --- | --- |
-| Frontend | [acd81e4db1a6d44bf9f7e91fa6236ea8-1160940709.us-east-1.elb.amazonaws.com](http://acd81e4db1a6d44bf9f7e91fa6236ea8-1160940709.us-east-1.elb.amazonaws.com) |
-| Backend | [a4541144bba5d44bb8861c8c2164bd68-1038229919.us-east-1.elb.amazonaws.com/movies](http://a4541144bba5d44bb8861c8c2164bd68-1038229919.us-east-1.elb.amazonaws.com/movies) |
+| Frontend | `TO_BE_CAPTURED_FROM_KUBECTL_GET_SVC` |
+| Backend | `TO_BE_CAPTURED_FROM_KUBECTL_GET_SVC/movies` |
 
-These endpoints are transcribed from the existing frontend and backend verification screenshots. Recheck both with `kubectl get svc frontend backend` immediately before submission because AWS LoadBalancer hostnames are deployment-specific and may change after infrastructure is recreated. The backend URL must return the movie JSON response, and the frontend URL must load the movie list in a browser.
-
-The documented hostnames were not DNS-resolvable from the current environment on 2026-09-08, so treat them as captured evidence until a fresh AWS verification confirms the current service endpoints.
+Capture the current endpoints with `kubectl get svc frontend backend` immediately before submission. The backend URL must return the movie JSON response, and the frontend URL must load the movie list in a browser.
 
 ### Ownership evidence
 
 Screenshots must be sequential, unedited captures from the same verification run. Every capture must show a unique identifier such as the UTC timestamp, AWS account ID, EKS cluster ARN, ECR image digest, Git commit SHA, or resource ARN. Do not crop, annotate, or combine screenshots after capture.
 
-Existing pipeline captures are available here:
-
-1. [Frontend CI](Screenshorts/FRONTEND%20CI.png)
-2. [Frontend CD](Screenshorts/FRONTEND%20CD.png)
-3. [Backend CI](Screenshorts/BACKEND%20CI.png)
-4. [Backend CD](Screenshorts/BACKEND%20CD.png)
-5. [Frontend application](Screenshorts/FRONTEND.png)
-6. [Backend application](Screenshorts/backend.png)
-
-The following evidence must also be captured and added to `Screenshorts/` before review:
+No prior screenshots are presented as ownership evidence. Capture and add your own unedited screenshots to `Screenshorts/` before review:
 
 1. GitHub repository URL, commit SHA, and the Frontend CI, Frontend CD, Backend CI, and Backend CD run pages.
 2. AWS account identity, EKS cluster identity, ECR repository ARNs, and the deployed workload image references.
