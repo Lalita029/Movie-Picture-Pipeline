@@ -13,7 +13,7 @@ You'll find 2 folders, one named `frontend` and one named `backend`, where each 
 
 ### Repository access
 
-The source repository is publicly accessible at [github.com/neravatisaidinesh/movie-picture-pipeline](https://github.com/neravatisaidinesh/movie-picture-pipeline).
+The source repository is publicly accessible at [github.com/Lalita029/movie-picture-pipeline](https://github.com/Lalita029/movie-picture-pipeline).
 
 ### Live verification
 
