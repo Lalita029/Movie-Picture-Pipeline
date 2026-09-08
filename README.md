@@ -194,6 +194,15 @@ Before running either CD workflow, open the repository's **Settings > Secrets an
 
 Never commit AWS keys to the repository or place them in workflow files. The error `Credentials could not be loaded, please check your action inputs` means `AWS_ACCESS_KEY_ID` or `AWS_SECRET_ACCESS_KEY` is missing, empty, expired, or belongs to an AWS account without access to the ECR and EKS resources. After adding or rotating the secrets, rerun the failed Backend CD workflow and then the Frontend CD workflow.
 
+If AWS authentication succeeds but Frontend CD fails while pushing its image, or Backend CD fails during its Docker build/push step, verify that the credentials and ECR repositories belong to the same AWS account:
+
+```bash
+aws sts get-caller-identity
+aws ecr describe-repositories --region us-east-1 --repository-names frontend backend
+```
+
+The account ID must match the ECR host in the two repository secrets. If either repository is missing, apply the Terraform environment first with `terraform apply`, then rerun the workflows. Do not create repositories in a different AWS account or replace the ECR URLs with guessed values.
+
 
 ## Setting up Continuous Deployment environment
 
