@@ -220,13 +220,23 @@ terraform output
 
 ### Generate AWS access keys for Github Actions
 
-1. Once everything is created, you'll need to generate AWS credentials for the IAM user account that Github Actions will use in order to interact with your AWS account.
-2. Launch the Cloud Gateway and go to the IAM service.
-3. Under users, you should only see the `github-action-user` user account
-4. Click the account and go to `Security Credentials`
-5. Under `Access keys`  select `Create access key`
-6. Select `Application running outside AWS` and click `Next`, then `Create access key` to finish creating the keys
-7. On the last page, make sure to copy/paste these keys for storing in Github Secrets
+1. First confirm that the Terraform environment has been applied. From the repository root, run:
+
+```bash
+cd setup/terraform
+terraform apply
+terraform output github_action_user_arn
+```
+
+The IAM console must show the `github-action-user` user before continuing. If IAM shows `IAM users (0)`, the AWS account has not created the Terraform resources yet, or they were previously destroyed; do not try to create arbitrary credentials for a different user.
+
+2. Once everything is created, generate AWS credentials for the IAM user account that Github Actions will use in order to interact with your AWS account.
+3. Launch the Cloud Gateway and go to the IAM service.
+4. Under users, you should only see the `github-action-user` user account.
+5. Click the account and go to `Security Credentials`.
+6. Under `Access keys`, select `Create access key`.
+7. Select `Application running outside AWS` and click `Next`, then `Create access key` to finish creating the keys.
+8. Store the two generated values immediately as the `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` GitHub Secrets. Do not commit or paste the secret access key into the repository.
 ![image](https://user-images.githubusercontent.com/57732284/221991526-ec4af661-b200-48cd-9087-6f1b3b9820b3.png)
 
 ### Add Github Action user to Kubernetes
