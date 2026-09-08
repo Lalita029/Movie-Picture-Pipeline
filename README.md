@@ -179,6 +179,21 @@ git push origin main
 
 As you work on the project, you won't need to create or initialize the repo again. You'll just need to make changes to your workflows in the `.github/workflows` folder, and perform `git add .` `git commit` and `git push` commands to make the files available in your repository and view your actions in the Github Actions interface.
 
+### Configure GitHub Actions secrets
+
+Before running either CD workflow, open the repository's **Settings > Secrets and variables > Actions** page and add these repository secrets. Secret names are case-sensitive:
+
+| Secret | Required value |
+| --- | --- |
+| `AWS_ACCESS_KEY_ID` | Access key for the AWS `github-action-user` IAM user |
+| `AWS_SECRET_ACCESS_KEY` | Secret access key for the same IAM user |
+| `FRONTEND_ECR_REPOSITORY` | `413127593923.dkr.ecr.us-east-1.amazonaws.com/frontend` |
+| `BACKEND_ECR_REPOSITORY` | `413127593923.dkr.ecr.us-east-1.amazonaws.com/backend` |
+| `EKS_CLUSTER_NAME` | `cluster` |
+| `REACT_APP_MOVIE_API_URL` | Current backend LoadBalancer base URL, without `/movies` |
+
+Never commit AWS keys to the repository or place them in workflow files. The error `Credentials could not be loaded, please check your action inputs` means `AWS_ACCESS_KEY_ID` or `AWS_SECRET_ACCESS_KEY` is missing, empty, expired, or belongs to an AWS account without access to the ECR and EKS resources. After adding or rotating the secrets, rerun the failed Backend CD workflow and then the Frontend CD workflow.
+
 
 ## Setting up Continuous Deployment environment
 
