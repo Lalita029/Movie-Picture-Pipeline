@@ -153,11 +153,11 @@ If you already know what email you'd like to use, great! If you'd like to use th
 git config --global user.email "YOUR_EMAIL"
 ```
    
-Now we'll finish up by initializing the repository and using the `gh` command to push the files to a new repository under you Github account. The last command uses `udacity-build-cicd-project` as the repository name, but you can change this to be whatever you'd like that doesn't conflict with an existing repo name in your account.
+This project is already published at [github.com/Lalita029/Movie-Picture-Pipeline](https://github.com/Lalita029/Movie-Picture-Pipeline). If you are working from a fresh clone, use the existing remote and push changes to its `main` branch.
 
-**Initialize the workspace as a git repository**
+**Check the repository remote**
 ```bash
-git init
+git remote -v
 ```
    
 **Stage the workspace files for committing**
@@ -170,9 +170,9 @@ git add .
 git commit -m "initial"
 ```
    
-**Create your public repository and push the initial changes (it needs to be public to allow Github Actions to run for free)**
+**Push changes to the public repository**
 ```bash
-gh repo create udacity-build-cicd-project --source=. --public --push
+git push origin main
 ```
 
 As you work on the project, you won't need to create or initialize the repo again. You'll just need to make changes to your workflows in the `.github/workflows` folder, and perform `git add .` `git commit` and `git push` commands to make the files available in your repository and view your actions in the Github Actions interface.
