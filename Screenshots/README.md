@@ -1,33 +1,51 @@
 # Project Verification Screenshots
 
-These screenshots are original local verification captures for this project. They show the frontend and backend running together on the developer machine; they are not a substitute for AWS CI/CD and EKS ownership evidence.
+This folder contains the project's local application checks and GitHub Actions CI/CD captures.
 
-## Local frontend
+## Local application checks
 
-The React frontend is running at `http://localhost:3000` and displays the movie list returned by the backend.
+### Frontend
+
+The React frontend was verified at `http://localhost:3000` and displayed the movie list returned by the backend.
 
 ![Local frontend movie list](image.png)
 
-## Local backend API
+### Backend API
 
-The Flask backend returns the movie JSON response at `http://localhost:5000/movies`.
+The Flask API was verified at `http://localhost:5000/movies`.
 
 ![Local backend API](image-1.png)
 
-The same API is reachable from the local network at `http://192.168.1.102:5000/movies`.
+The API was also checked from the local network at `http://192.168.1.102:5000/movies`.
 
 ![Backend LAN URL](image-2.png)
 
-## AWS submission evidence still required
+## GitHub Actions pipeline checks
 
-Before submission, add your own sequential, unedited screenshots for:
+### Backend CD
 
-1. Frontend CI and CD workflow runs.
-2. Backend CI and CD workflow runs.
-3. AWS account identity, EKS cluster ARN, ECR repository ARNs, and deployed image references.
-4. `kubectl get svc,pods,deploy,nodes -o wide` output.
-5. `kubectl describe deploy` and `kubectl describe svc` output.
-6. Frontend and backend ECR image tags and digests.
-7. Current deployed frontend and backend LoadBalancer URLs.
+![Backend CD workflow](BACKEND%20CD.png)
 
-Every AWS screenshot must be sequential and unedited, with a timestamp and a unique identifier such as the Git commit SHA, AWS account ID, resource ARN, ECR digest, EKS cluster ARN, or LoadBalancer hostname. Do not reuse screenshots from another project.
+### Backend CI
+
+![Backend CI workflow](BACKEND%20CI.png)
+
+### Frontend CI
+
+![Frontend CI workflow](FRONTEND%20CI.png)
+
+### Frontend CD
+
+![Frontend CD workflow](FRONTEND%20CD.png)
+
+## Final AWS evidence
+
+For the final submission, add sequential, unedited captures showing:
+
+1. AWS account identity, EKS cluster ARN, ECR repository ARNs, and deployed image references.
+2. `kubectl get svc,pods,deploy,nodes -o wide` output.
+3. `kubectl describe deploy` and `kubectl describe svc` output.
+4. Frontend and backend ECR image tags and digests.
+5. Current deployed frontend and backend LoadBalancer URLs.
+
+Every AWS screenshot must show a timestamp and a unique identifier such as the Git commit SHA, AWS account ID, resource ARN, ECR digest, EKS cluster ARN, or LoadBalancer hostname. Do not reuse screenshots from another project or alter the captures.
