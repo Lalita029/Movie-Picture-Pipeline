@@ -26,11 +26,13 @@ Complete these two values from the deployed Kubernetes services before submittin
 
 Capture the current endpoints with `kubectl get svc frontend backend` immediately before submission. The backend URL must return the movie JSON response, and the frontend URL must load the movie list in a browser.
 
+Do not submit while either placeholder remains. If the cluster was recreated, old LoadBalancer hostnames are invalid; always use the values from the latest deployment.
+
 ### Ownership evidence
 
 Screenshots must be sequential, unedited captures from the same verification run. Every capture must show a unique identifier such as the UTC timestamp, AWS account ID, EKS cluster ARN, ECR image digest, Git commit SHA, or resource ARN. Do not crop, annotate, or combine screenshots after capture.
 
-No prior screenshots are presented as ownership evidence. Capture and add your own unedited screenshots to `Screenshorts/` before review:
+The `Screenshorts/` folder currently contains only an evidence-capture guide. No screenshots from another project are included. Capture and add your own unedited screenshots in the order described by [Screenshorts/README.md](Screenshorts/README.md) before review:
 
 1. GitHub repository URL, commit SHA, and the Frontend CI, Frontend CD, Backend CI, and Backend CD run pages.
 2. AWS account identity, EKS cluster identity, ECR repository ARNs, and the deployed workload image references.
@@ -38,7 +40,7 @@ No prior screenshots are presented as ownership evidence. Capture and add your o
 4. ECR image details for both the frontend and backend images, including the SHA-tagged image tag and digest.
 5. A browser/API check of both live URLs.
 
-The current Terraform state records this infrastructure baseline. Confirm it against the live AWS account during evidence capture because Terraform state can become stale:
+The repository Terraform state snapshot records this infrastructure baseline. Confirm it against the live AWS account during evidence capture because Terraform state can become stale:
 
 | Resource | Recorded value |
 | --- | --- |
@@ -66,6 +68,15 @@ curl -i "$BACKEND_URL/movies"
 ```
 
 The teardown evidence must include the complete output for `kubectl get svc,pods,deploy,nodes -o wide`, `kubectl describe deploy`, `kubectl describe svc`, and the image details for both ECR repositories. Preserve the original capture order and include the timestamp or another unique identifier in every screenshot.
+
+### Final submission checklist
+
+- [ ] Replace both live URL placeholders with current, tested LoadBalancer URLs.
+- [ ] Confirm the backend URL returns `/movies` JSON and the frontend URL loads the movie list.
+- [ ] Capture Frontend CI, Frontend CD, Backend CI, and Backend CD runs for the current commit.
+- [ ] Capture AWS account, EKS, ECR, Kubernetes resource, and ECR image details with identifiers visible.
+- [ ] Add only your own sequential screenshots to `Screenshorts/`.
+- [ ] Push the README, screenshots, and final code commit to [the public repository](https://github.com/Lalita029/Movie-Picture-Pipeline).
 
 ## Deliverables
 
