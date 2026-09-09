@@ -1,7 +1,7 @@
 #!/bin/bash
 set -euo pipefail
 
-OUTPUT_DIR="${1:-Screenshorts/evidence-$(date -u +%Y%m%dT%H%M%SZ)}"
+OUTPUT_DIR="${1:-Screenshots/evidence-$(date -u +%Y%m%dT%H%M%SZ)}"
 CLUSTER_NAME="${EKS_CLUSTER_NAME:-cluster}"
 AWS_REGION="${AWS_REGION:-us-east-1}"
 

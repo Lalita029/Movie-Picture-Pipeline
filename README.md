@@ -1,13 +1,24 @@
 # Movie Picture Pipeline
 
-You've been brought on as the DevOps resource for a development team that manages a web application that is a catalog of Movie Picture movies. They're in dire need of automating their development workflows in hopes of accelerating their release cycle. They'd like to use Github Actions to automate testing, building and deploying their applications to an existing Kubernetes cluster.
+> A containerized movie catalog with automated CI/CD, Amazon ECR, and Amazon EKS deployments.
 
-The team's project is comprised of 2 applications.
+This project contains a React frontend and a Flask API, with GitHub Actions workflows for testing, linting, image publishing, and Kubernetes deployment.
 
-1. A frontend UI written in Typescript, using the React framework
-2. A backend API written in Python using the Flask framework.
+| Component | Technology | Local endpoint |
+| --- | --- | --- |
+| Frontend | React | [localhost:3000](http://localhost:3000) |
+| Backend API | Flask | [localhost:5000/movies](http://localhost:5000/movies) |
 
-You'll find 2 folders, one named `frontend` and one named `backend`, where each application's source code is maintained. Your job is to use the team's [existing documentation](#frontend-development-notes) and create CI/CD pipelines to meet the teams' needs.
+## Project navigation
+
+- [CI/CD workflows](.github/workflows)
+- [Frontend application](starter/frontend)
+- [Backend application](starter/backend)
+- [Local verification screenshots](Screenshots/README.md)
+- [Submission verification](#submission-verification)
+- [Public GitHub repository](https://github.com/Lalita029/Movie-Picture-Pipeline)
+
+The frontend reads its API base URL from `REACT_APP_MOVIE_API_URL`. In production, the CD workflow builds images tagged with the triggering Git commit SHA and deploys the matching image to EKS.
 
 ## Submission Verification
 
@@ -32,7 +43,7 @@ Do not submit while either placeholder remains. If the cluster was recreated, ol
 
 Screenshots must be sequential, unedited captures from the same verification run. Every capture must show a unique identifier such as the UTC timestamp, AWS account ID, EKS cluster ARN, ECR image digest, Git commit SHA, or resource ARN. Do not crop, annotate, or combine screenshots after capture.
 
-The `Screenshorts/` folder currently contains only an evidence-capture guide. No screenshots from another project are included. Capture and add your own unedited screenshots in the order described by [Screenshorts/README.md](Screenshorts/README.md) before review:
+The `Screenshots/` folder contains local verification captures and an evidence guide. Capture and add your own unedited AWS screenshots in the order described by [Screenshots/README.md](Screenshots/README.md) before review:
 
 1. GitHub repository URL, commit SHA, and the Frontend CI, Frontend CD, Backend CI, and Backend CD run pages.
 2. AWS account identity, EKS cluster identity, ECR repository ARNs, and the deployed workload image references.
@@ -52,7 +63,7 @@ The repository Terraform state snapshot records this infrastructure baseline. Co
 
 Capture the following commands in order. Run them before tearing down infrastructure if the cluster will not remain available for review:
 
-For a repeatable text record of the same checks, run `bash setup/collect-evidence.sh`. The script writes a timestamped record under `Screenshorts/`; capture the terminal output separately because the review requirement is for sequential, unedited screenshots.
+For a repeatable text record of the same checks, run `bash setup/collect-evidence.sh`. The script writes a timestamped record under `Screenshots/`; capture the terminal output separately because the review requirement is for sequential, unedited screenshots.
 
 ```bash
 date -u
@@ -75,7 +86,7 @@ The teardown evidence must include the complete output for `kubectl get svc,pods
 - [ ] Confirm the backend URL returns `/movies` JSON and the frontend URL loads the movie list.
 - [ ] Capture Frontend CI, Frontend CD, Backend CI, and Backend CD runs for the current commit.
 - [ ] Capture AWS account, EKS, ECR, Kubernetes resource, and ECR image details with identifiers visible.
-- [ ] Add only your own sequential screenshots to `Screenshorts/`.
+- [ ] Add only your own sequential screenshots to `Screenshots/`.
 - [ ] Push the README, screenshots, and final code commit to [the public repository](https://github.com/Lalita029/Movie-Picture-Pipeline).
 
 ## Deliverables
